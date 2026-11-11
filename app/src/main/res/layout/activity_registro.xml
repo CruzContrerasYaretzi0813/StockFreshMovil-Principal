@@ -181,7 +181,7 @@
                             android:textStyle="bold" />
 
                         <EditText
-                            android:id="@+id/contraseñaUsuario"
+                            android:id="@+id/contrasenaUR"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             android:layout_marginTop="4dp"

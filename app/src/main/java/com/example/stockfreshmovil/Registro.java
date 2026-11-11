@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -18,12 +19,22 @@ public class Registro extends AppCompatActivity implements View.OnClickListener 
 
     TextView VolverInicioSesion;
     Button Registro;
+    EditText nombreCliente, idCliente, correoCliente, numeroTelefCliente, contraCliente;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_registro);
 
+        //Campos que llena el usuario (EditText)
+        nombreCliente = findViewById(R.id.nombreUsuario);
+        idCliente = findViewById(R.id.IDUsuario);
+        correoCliente = findViewById(R.id.correoUsuario);
+        numeroTelefCliente = findViewById(R.id.telefonoUsuario);
+        contraCliente = findViewById(R.id.contrasenaUR);
+
+        //Botones
         VolverInicioSesion = findViewById(R.id.tvYatengocuenta);
         VolverInicioSesion.setOnClickListener(this);
 

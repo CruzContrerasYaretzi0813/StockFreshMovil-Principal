@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <group
+        android:checkableBehavior="single"
+        >
+
+        <item
+            android:id="@+id/inicio"
+            android:icon="@drawable/inicio"
+            android:title="Inicio"/>
+        <item
+            android:id="@+id/bodegaV"
+            android:icon="@drawable/bodega_viveres"
+            android:title="Bodega de Viveres"
+
+            />
+        <item
+            android:id="@+id/estatusP"
+            android:icon="@drawable/estatus_productos"
+            android:title="Estatus de Productos"
+            />
+        <item
+            android:id="@+id/listas"
+            android:icon="@drawable/listas"
+            android:title="Listas"
+            />
+        <item
+            android:id="@+id/recetasP"
+            android:icon="@drawable/recetas_propias"
+            android:title="Recetas Propias"
+            />
+        <item
+            android:id="@+id/consumo"
+            android:icon="@drawable/consumo"
+            android:title="Consumo"
+            />
+        <item
+            android:id="@+id/menus"
+            android:icon="@drawable/menus"
+            android:title="Menús"
+            />
+
+    </group>
+</menu>
