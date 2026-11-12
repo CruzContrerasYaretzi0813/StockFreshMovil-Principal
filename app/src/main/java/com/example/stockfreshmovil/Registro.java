@@ -6,19 +6,27 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.google.gson.Gson;
 
 import org.w3c.dom.Text;
 
 public class Registro extends AppCompatActivity implements View.OnClickListener {
 
     TextView VolverInicioSesion;
-    Button Registro;
+    Button btnRegistro;
+
+    //Notese q idCliente(CódigoAndroid) y IdUsuario(En Base de MySQL) son lo mismo
     EditText nombreCliente, idCliente, correoCliente, numeroTelefCliente, contraCliente;
 
     @Override
@@ -38,8 +46,8 @@ public class Registro extends AppCompatActivity implements View.OnClickListener 
         VolverInicioSesion = findViewById(R.id.tvYatengocuenta);
         VolverInicioSesion.setOnClickListener(this);
 
-        Registro = findViewById(R.id.btnRegristrarseEnviar);
-        Registro.setOnClickListener(this);
+        btnRegistro = findViewById(R.id.btnRegristrarseEnviar);
+        btnRegistro.setOnClickListener(this);
     }
 
     @Override
@@ -53,8 +61,55 @@ public class Registro extends AppCompatActivity implements View.OnClickListener 
 
         String accion2 = ((Button)v).getText().toString();
         if(accion2.equals("Registrarse")){
-            Intent Home = new Intent(this, Home.class);
-            startActivity(Home);
+            registrarCliente();
         }
+    }
+
+    private void registrarCliente(){
+        String idUsuario = idCliente.getText().toString().trim();
+        String nombre = nombreCliente.getText().toString().trim();
+        String correo = correoCliente.getText().toString().trim();
+        String telefono = numeroTelefCliente.getText().toString().trim();
+        String contrasena = contraCliente.getText().toString().trim();
+
+        if( idUsuario.isEmpty() || nombre.isEmpty() || correo.isEmpty() || telefono.isEmpty() || contrasena.isEmpty()){
+            Toast.makeText(this, "Completa todos los datos obligatorios", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        btnRegistro.setEnabled(false);
+
+        RegistroRequest body = new RegistroRequest(idUsuario, nombre, correo, telefono,contrasena);
+        ApiClient.getService().registrarCliente(body).enqueue(new Callback<RegistroResponse>() {
+            @Override
+            public void onResponse(Call<RegistroResponse> call, Response<RegistroResponse> response) {
+                btnRegistro.setEnabled(true);
+                if (response.isSuccessful() && response.body() != null){
+                    Toast.makeText(Registro.this, response.body().mensaje, Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(Registro.this, Home.class));
+                    finish();
+                } else {
+                    String msj = "Ocurrió un error al registrar el Cliente";
+                    try {
+                        if (response.errorBody() != null){
+                            RegistroResponse err = new Gson().fromJson(response.errorBody().string(), RegistroResponse.class);
+                            if (err != null && err.error != null) {
+                                msj = err.error; // Toma el texto que manda el servidor <<node server.js>< (ej. "El ID ya está en uso")
+                            }
+                        }
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    // Despliegue de mensaje que manda node server.js
+                    Toast.makeText(Registro.this, msj, Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RegistroResponse> call, Throwable throwable) {
+                Toast.makeText(Registro.this, "No se pudo conectar: " + throwable.getMessage(),
+                        Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }
