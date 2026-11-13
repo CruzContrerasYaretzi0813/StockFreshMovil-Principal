@@ -88,7 +88,7 @@
                             android:textStyle="bold" />
 
                         <EditText
-                            android:id="@+id/IDUsuario"
+                            android:id="@+id/IDUsuarioIS"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             android:layout_marginTop="4dp"
@@ -112,7 +112,7 @@
                             android:textStyle="bold" />
 
                         <EditText
-                            android:id="@+id/contrasenaUIS"
+                            android:id="@+id/contrasenaIS"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             android:layout_marginTop="4dp"

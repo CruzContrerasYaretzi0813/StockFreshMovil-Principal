@@ -107,6 +107,7 @@ public class Registro extends AppCompatActivity implements View.OnClickListener 
 
             @Override
             public void onFailure(Call<RegistroResponse> call, Throwable throwable) {
+                btnRegistro.setEnabled(true);
                 Toast.makeText(Registro.this, "No se pudo conectar: " + throwable.getMessage(),
                         Toast.LENGTH_LONG).show();
             }
