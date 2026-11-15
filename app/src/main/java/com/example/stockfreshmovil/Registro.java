@@ -52,15 +52,14 @@ public class Registro extends AppCompatActivity implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-        String accion = ((TextView)v).getText().toString();
+        int id = v.getId();
 
-        if (accion.equals("¿Ya tienes cuenta? Inicia sesión")){
+        if (id == R.id.tvYatengocuenta){
             Intent volverInicioSesion = new Intent(this, IniciarSesion.class);
             startActivity(volverInicioSesion);
         }
 
-        String accion2 = ((Button)v).getText().toString();
-        if(accion2.equals("Registrarse")){
+        if(id == R.id.btnRegristrarseEnviar){
             registrarCliente();
         }
     }
@@ -85,6 +84,25 @@ public class Registro extends AppCompatActivity implements View.OnClickListener 
             public void onResponse(Call<RegistroResponse> call, Response<RegistroResponse> response) {
                 btnRegistro.setEnabled(true);
                 if (response.isSuccessful() && response.body() != null){
+
+                    //Obtiene los datos de nobre y correo para almacenarlos en Datos de Usuario
+                    String nombreUsuario = response.body().nombre;
+                    int idCliente = response.body().idCliente;
+                    String idUsuario = response.body().idUsuario;
+                    String correoUsuario = response.body().correoElectronico;
+                    String numeroCelular = response.body().numeroCelular;
+                    String contrasena = response.body().contrasena;
+
+                    android.content.SharedPreferences prefs = getSharedPreferences("DatosUsuario", MODE_PRIVATE);
+                    prefs.edit()
+                            .putString("nombre", nombreUsuario)
+                            .putInt("idCliente", idCliente)
+                            .putString("idUsuario", idUsuario)
+                            .putString("correoElectronico", correoUsuario)
+                            .putString("numeroCelular", numeroCelular)
+                            .putString("contrasena", contrasena)
+                            .apply();
+
                     Toast.makeText(Registro.this, response.body().mensaje, Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(Registro.this, Home.class));
                     finish();

@@ -49,14 +49,13 @@ public class IniciarSesion extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        String accion = ((TextView)v).getText().toString();
+        int id = v.getId();
 
-        if(accion.equals("¿No tienes cuenta? Registrate")){
+        if(id == R.id.tvNotengoCuenta){
             Intent volverRegistro = new Intent(this, Registro.class);
             startActivity(volverRegistro);
         }
-        String accion2 = ((Button)v).getText().toString();
-        if(accion2.equals("Iniciar Sesión")){
+        if(id == R.id.btnIniciarSesionEnviar){
             iniciarSesionCliente();
         }
     }
@@ -77,8 +76,31 @@ public class IniciarSesion extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void onResponse(Call<IniciarSesionResponse> call, Response<IniciarSesionResponse> response) {
+
                 btnIniciarSesion.setEnabled(true);
                 if (response.isSuccessful() && response.body() !=null){
+
+                    //Obtiene los datos de nobre y correo para almacenarlos en Datos de Usuario
+                    String nombreUsuario = response.body().nombre;
+                    int idCliente = response.body().idCliente;
+                    String idUsuario = response.body().idUsuario;
+                    String correoUsuario = response.body().correoElectronico;
+                    String numeroCelular = response.body().numeroCelular;
+                    String contrasena = response.body().contrasena;
+
+                    android.content.SharedPreferences prefs = getSharedPreferences("DatosUsuario", MODE_PRIVATE);
+                    prefs.edit()
+
+                                    .putString("nombre", nombreUsuario)
+                                    .putInt("idCliente", idCliente)
+                                    .putString("idUsuario", idUsuario)
+                                    .putString("correoElectronico", correoUsuario)
+                                    .putString("numeroCelular", numeroCelular)
+                                    .putString("contrasena", contrasena)
+                                    .apply();
+
+
+
                     Toast.makeText(IniciarSesion.this, response.body().mensaje, Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(IniciarSesion.this, Home.class));
                     finish();

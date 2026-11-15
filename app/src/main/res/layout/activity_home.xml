@@ -35,14 +35,69 @@
 
     </LinearLayout>
 
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="280dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:headerLayout="@layout/menu_header"
-        app:itemIconTint="#C95F54"
-        app:itemTextColor="#383837"
-        app:menu="@menu/barramenu" />
+        android:orientation="vertical"
+        android:background="#FAFAFA"
+        android:fitsSystemWindows="true">
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:headerLayout="@layout/menu_header"
+            app:itemIconTint="#C95F54"
+            app:itemTextColor="#383837"
+            app:menu="@menu/barramenu" />
+
+        <!-- Línea separadora -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E0E0E0" />
+
+        <!-- Footer (fila completa, NO clickable) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical|end"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
+
+            <!-- Solo esta parte es clickable -->
+            <LinearLayout
+                android:id="@+id/btn_perfil_footer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Perfil"
+                    android:textColor="#d5676e"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:layout_marginEnd="8dp" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/perfil" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>

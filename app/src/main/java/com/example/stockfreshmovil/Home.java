@@ -1,8 +1,11 @@
 package com.example.stockfreshmovil;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -30,6 +33,7 @@ public class Home extends AppCompatActivity implements
     private static final int menu_menus = R.id.menus;
     private DrawerLayout drawerLayout;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,8 +47,24 @@ public class Home extends AppCompatActivity implements
 
         drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
+
+        View headerView = navigationView.getHeaderView(0);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setItemIconTintList(null);
+
+        findViewById(R.id.btn_perfil_footer).setOnClickListener(v -> {
+            drawerLayout.closeDrawer(GravityCompat.START);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new perfilfragment())
+                    .commit();
+        });
+
+        TextView tvNombre = headerView.findViewById(R.id.tvNombreUsuario);
+        TextView tvCorreo = headerView.findViewById(R.id.tvCorreoUsuario);
+
+        SharedPreferences prefs = getSharedPreferences("DatosUsuario", MODE_PRIVATE);
+        tvNombre.setText(prefs.getString("nombre", "Nombre Usuario"));
+        tvCorreo.setText(prefs.getString("correoElectronico", "correoUsuario@stockFresh.com"));
 
         //Busca el mennu
         Menu menu = navigationView.getMenu();

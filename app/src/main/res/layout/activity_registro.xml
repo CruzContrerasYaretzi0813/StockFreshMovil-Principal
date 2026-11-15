@@ -180,19 +180,34 @@
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
-                        <EditText
-                            android:id="@+id/contrasenaUR"
+                        <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
-                            android:layout_height="45dp"
-                            android:layout_marginTop="4dp"
-                            android:background="@drawable/f_campostexto"
-                            android:hint="Ejemplo: st0ckfr3sh@"
-                            android:inputType="textPassword"
-                            android:paddingStart="12dp"
-                            android:paddingEnd="12dp"
-                            android:textColor="#000000"
-                            android:textColorHint="#A0A0A0"
-                            android:textSize="14sp" />
+                            android:layout_height="wrap_content"
+                            app:endIconMode="password_toggle"
+                            app:endIconTint="#C0392B"
+                            app:boxBackgroundMode="none"
+                            app:hintEnabled="false">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/contrasenaUR"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:minHeight="48dp"
+                                android:gravity="center_vertical"
+                                android:paddingStart="12dp"
+                                android:paddingEnd="12dp"
+                                android:paddingTop="0dp"
+                                android:paddingBottom="0dp"
+                                android:inputType="textPassword"
+                                android:hint="Ejemplo: stockfr3sh@"
+                                android:textSize="14sp"
+                                android:layout_marginTop="4dp"
+                                android:background="@drawable/f_campostexto"
+                                android:textColor="#000000"
+                                android:textColorHint="#A0A0A0"
+                                />
+
+                        </com.google.android.material.textfield.TextInputLayout>
 
                         <!-- BOTÓN REGISTRARSE -->
                         <Button
