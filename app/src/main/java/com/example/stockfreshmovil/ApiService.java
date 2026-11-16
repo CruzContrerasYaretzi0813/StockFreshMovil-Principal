@@ -2,12 +2,16 @@ package com.example.stockfreshmovil;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface ApiService {
+
+    @DELETE("api/clientes/{id}")
+    Call<PerfilResponses> eliminarCuenta(@Path("id") int idCliente);
 
     @GET("api/clientes/{id}")
     Call<PerfilResponses> obtenerPerfil(@Path("id") int idCliente);
