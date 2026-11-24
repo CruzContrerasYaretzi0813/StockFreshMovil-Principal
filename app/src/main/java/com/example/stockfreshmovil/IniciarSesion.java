@@ -62,16 +62,16 @@ public class IniciarSesion extends AppCompatActivity implements View.OnClickList
 
     private void iniciarSesionCliente(){
         String idUsuario = idCliente.getText().toString().trim();
-        String contrasena = contrasenaCliente.getText().toString().trim();
+        String contrasenaIngresada = contrasenaCliente.getText().toString().trim();
 
-        if ( idUsuario.isEmpty() || contrasena.isEmpty()){
+        if ( idUsuario.isEmpty() || contrasenaIngresada.isEmpty()){
             Toast.makeText(this, "Completa todos los datos", Toast.LENGTH_SHORT).show();
             return;
         }
 
         btnIniciarSesion.setEnabled(false);
 
-        IniciarSesionRequest body = new IniciarSesionRequest(idUsuario, contrasena);
+        IniciarSesionRequest body = new IniciarSesionRequest(idUsuario, contrasenaIngresada);
         ApiClient.getService().iniciarSesionCliente(body).enqueue(new Callback<IniciarSesionResponse>() {
 
             @Override
@@ -96,7 +96,7 @@ public class IniciarSesion extends AppCompatActivity implements View.OnClickList
                                     .putString("idUsuario", idUsuario)
                                     .putString("correoElectronico", correoUsuario)
                                     .putString("numeroCelular", numeroCelular)
-                                    .putString("contrasena", contrasena)
+                                    .putString("contrasena", contrasenaIngresada)
                                     .apply();
 
 

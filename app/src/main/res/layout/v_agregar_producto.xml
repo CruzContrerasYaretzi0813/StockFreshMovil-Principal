@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_agregar_producto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    app:cardBackgroundColor="#FFFFFF"
+    app:cardCornerRadius="28dp"
+    app:cardElevation="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <!-- Título -->
+        <TextView
+            android:id="@+id/tv_titulo_agregar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:lineSpacingExtra="2dp"
+            android:text="Agregar\nProducto"
+            android:textColor="#F2C14E"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <!-- Fila superior: Tarjeta izquierda + Campos derecha -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <!-- Espacio/tarjeta lateral izquierda (por si luego pones imagen o vista previa) -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_preview_producto"
+                android:layout_width="110dp"
+                android:layout_height="175dp"
+                android:layout_marginEnd="12dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="4dp">
+
+                <ImageView
+                    android:id="@+id/iv_preview_producto"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="Vista previa de categoría"
+                    android:padding="14dp"
+                    android:scaleType="centerInside" />
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Columna derecha: Nombre, Categoría, Unidad de Medida y Cantidad -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <!-- Nombre -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre"
+                    android:textColor="#222222"
+                    android:textSize="13sp" />
+
+                <EditText
+                    android:id="@+id/et_nombre_producto"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/bg_campo_bodega"
+                    android:hint="Ej. Leche entera"
+                    android:inputType="textCapSentences"
+                    android:paddingHorizontal="10dp"
+                    android:textColor="#222222"
+                    android:textColorHint="#BDBDBD"
+                    android:textSize="14sp" />
+
+                <!-- Categoría -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Categoría"
+                    android:textColor="#222222"
+                    android:textSize="13sp" />
+
+                <Spinner
+                    android:id="@+id/sp_categoria_producto"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/bg_campo_bodega"
+                    android:paddingHorizontal="8dp" />
+
+                <!-- Fila: Unidad de Medida + Cantidad -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal">
+
+                    <!-- Unidad de Medida -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1.15"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:text="Unidad de Medida"
+                            android:textColor="#222222"
+                            android:textSize="12sp" />
+
+                        <Spinner
+                            android:id="@+id/sp_unidad_producto"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="4dp"
+                            android:background="@drawable/bg_campo_bodega"
+                            android:paddingHorizontal="6dp" />
+                    </LinearLayout>
+
+                    <!-- Cantidad (-  0  +) -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Cantidad"
+                            android:textColor="#222222"
+                            android:textSize="12sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="4dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageButton
+                                android:id="@+id/btn_restar_cantidad"
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:contentDescription="Disminuir cantidad"
+                                android:src="@android:drawable/ic_input_delete"
+                                app:tint="#F2C14E" />
+
+                            <TextView
+                                android:id="@+id/tv_cantidad_producto"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="0"
+                                android:textColor="#B5B5B5"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <ImageButton
+                                android:id="@+id/btn_sumar_cantidad"
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:contentDescription="Aumentar cantidad"
+                                android:src="@android:drawable/ic_input_add"
+                                app:tint="#F2C14E" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Fila inferior: Fecha de Compra y Fecha de Caducidad -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <!-- Fecha de Compra -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fecha de Compra"
+                    android:textColor="#222222"
+                    android:textSize="13sp" />
+
+                <LinearLayout
+                    android:id="@+id/layout_fecha_compra"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/bg_campo_bodega"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="10dp">
+
+                    <TextView
+                        android:id="@+id/tv_fecha_compra"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="00/00/00"
+                        android:textColor="#BDBDBD"
+                        android:textSize="13sp" />
+
+                    <ImageView
+                        android:id="@+id/iv_calendario_compra"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:contentDescription="Seleccionar fecha de compra"
+                        android:src="@android:drawable/ic_menu_my_calendar"
+                        app:tint="#F2C14E" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Fecha de Caducidad -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fecha de Caducidad"
+                    android:textColor="#222222"
+                    android:textSize="13sp" />
+
+                <LinearLayout
+                    android:id="@+id/layout_fecha_caducidad"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/bg_campo_bodega"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="10dp">
+
+                    <TextView
+                        android:id="@+id/tv_fecha_caducidad"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="00/00/00"
+                        android:textColor="#BDBDBD"
+                        android:textSize="13sp" />
+
+                    <ImageView
+                        android:id="@+id/iv_calendario_caducidad"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:contentDescription="Seleccionar fecha de caducidad"
+                        android:src="@android:drawable/ic_menu_my_calendar"
+                        app:tint="#F2C14E" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Botón principal: Agregar Producto -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_confirmar_agregar_producto"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginBottom="4dp"
+            android:text="Agregar Producto"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:backgroundTint="#F2C14E"
+            app:cornerRadius="26dp"
+            app:elevation="4dp" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

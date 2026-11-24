@@ -5,7 +5,6 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     tools:context=".Home"
     tools:openDrawer="start">
 
@@ -16,16 +15,16 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
+            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:minHeight="?attr/actionBarSize"
             android:background="@drawable/degradadoheader"
             android:elevation="4dp"
             android:gravity="center_vertical"
-            android:minHeight="?attr/actionBarSize"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:contentInsetStartWithNavigation="0dp"
             app:titleMarginStart="16dp"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
 
         <FrameLayout
@@ -40,12 +39,12 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:orientation="vertical"
-        android:background="#FAFAFA"
-        android:fitsSystemWindows="true">
+        android:background="#FAFAFA">
 
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/nav_view"
             android:layout_width="match_parent"
+            app:itemShapeFillColor="@android:color/transparent"
             android:layout_height="0dp"
             android:layout_weight="1"
             app:headerLayout="@layout/menu_header"

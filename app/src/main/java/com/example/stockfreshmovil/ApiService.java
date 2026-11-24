@@ -1,5 +1,7 @@
 package com.example.stockfreshmovil;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -10,6 +12,17 @@ import retrofit2.http.Path;
 
 public interface ApiService {
 
+    @GET("api/catalogos/categorias-cliente")
+    Call<List<CategoriaCliente>> obtenerCategoriasCliente();
+
+    @GET("api/catalogos/unidades-medida")
+    Call<List<UnidadMedida>> obtenerUnidadesMedida();
+
+    @POST("api/almacen")
+    Call<AlmacenResponse> guardarEnAlmacen(@Body AlmacenRequest request);
+
+    @GET("api/almacen/cliente/{idCliente}")
+    Call<List<AlmacenItem>> obtenerAlmacenCliente(@Path("idCliente") int idCliente);
     @DELETE("api/clientes/{id}")
     Call<PerfilResponses> eliminarCuenta(@Path("id") int idCliente);
 

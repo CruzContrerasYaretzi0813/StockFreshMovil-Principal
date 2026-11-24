@@ -69,16 +69,16 @@ public class Registro extends AppCompatActivity implements View.OnClickListener 
         String nombre = nombreCliente.getText().toString().trim();
         String correo = correoCliente.getText().toString().trim();
         String telefono = numeroTelefCliente.getText().toString().trim();
-        String contrasena = contraCliente.getText().toString().trim();
+        String contrasenaIngresada = contraCliente.getText().toString().trim();
 
-        if( idUsuario.isEmpty() || nombre.isEmpty() || correo.isEmpty() || telefono.isEmpty() || contrasena.isEmpty()){
+        if( idUsuario.isEmpty() || nombre.isEmpty() || correo.isEmpty() || telefono.isEmpty() || contrasenaIngresada.isEmpty()){
             Toast.makeText(this, "Completa todos los datos obligatorios", Toast.LENGTH_SHORT).show();
             return;
         }
 
         btnRegistro.setEnabled(false);
 
-        RegistroRequest body = new RegistroRequest(idUsuario, nombre, correo, telefono,contrasena);
+        RegistroRequest body = new RegistroRequest(idUsuario, nombre, correo, telefono,contrasenaIngresada);
         ApiClient.getService().registrarCliente(body).enqueue(new Callback<RegistroResponse>() {
             @Override
             public void onResponse(Call<RegistroResponse> call, Response<RegistroResponse> response) {
@@ -91,7 +91,6 @@ public class Registro extends AppCompatActivity implements View.OnClickListener 
                     String idUsuario = response.body().idUsuario;
                     String correoUsuario = response.body().correoElectronico;
                     String numeroCelular = response.body().numeroCelular;
-                    String contrasena = response.body().contrasena;
 
                     android.content.SharedPreferences prefs = getSharedPreferences("DatosUsuario", MODE_PRIVATE);
                     prefs.edit()
@@ -100,7 +99,7 @@ public class Registro extends AppCompatActivity implements View.OnClickListener 
                             .putString("idUsuario", idUsuario)
                             .putString("correoElectronico", correoUsuario)
                             .putString("numeroCelular", numeroCelular)
-                            .putString("contrasena", contrasena)
+                            .putString("contrasena", contrasenaIngresada)
                             .apply();
 
                     Toast.makeText(Registro.this, response.body().mensaje, Toast.LENGTH_SHORT).show();

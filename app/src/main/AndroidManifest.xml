@@ -34,7 +34,7 @@
         <activity
             android:name=".Home"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:theme="@style/Theme.StockFreshMovil"
             android:windowSoftInputMode="adjustResize" />
     </application>
 

@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="sel_inicio">#33D2691E</color>
+    <color name="sel_bodega">#33E8B84B</color>
+    <color name="sel_estatus">#33C0505A</color>
+    <color name="sel_listas">#339CC24B</color>
+    <color name="sel_recetas">#335A7FE0</color>
+    <color name="sel_consumo">#338E44E0</color>
+    <color name="sel_menus">#33C0392B</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>

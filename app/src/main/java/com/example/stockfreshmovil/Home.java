@@ -31,6 +31,7 @@ public class Home extends AppCompatActivity implements
     private static final int menu_recetas = R.id.recetasP;
     private static final int menu_consumo = R.id.consumo;
     private static final int menu_menus = R.id.menus;
+    private NavigationView navigationView;
     private DrawerLayout drawerLayout;
 
 
@@ -39,17 +40,34 @@ public class Home extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_home);
+        getWindow().setStatusBarColor(android.graphics.Color.TRANSPARENT);
+
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
+        ViewCompat.setOnApplyWindowInsetsListener(toolbar, (v, insets) -> {
+            Insets sb = insets.getInsets(WindowInsetsCompat.Type.statusBars());
+            v.setPadding(v.getPaddingLeft(), sb.top, v.getPaddingRight(), v.getPaddingBottom());
+            return insets;
+        });
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Stock & Fresh");
 
         drawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
+
         NavigationView navigationView = findViewById(R.id.nav_view);
 
         View headerView = navigationView.getHeaderView(0);
+
+        ViewCompat.setOnApplyWindowInsetsListener(headerView, (v, insets) -> {
+            Insets sb = insets.getInsets(WindowInsetsCompat.Type.statusBars());
+            v.setPadding(v.getPaddingLeft(), sb.top + dpToPx(16),
+                    v.getPaddingRight(), v.getPaddingBottom());
+            return insets;
+        });
         navigationView.setNavigationItemSelectedListener(this);
+        pintarSeleccion(navigationView, R.id.inicio);
         navigationView.setItemIconTintList(null);
 
         findViewById(R.id.btn_perfil_footer).setOnClickListener(v -> {
@@ -87,6 +105,33 @@ public class Home extends AppCompatActivity implements
         }
     }
 
+    private void pintarSeleccion(NavigationView nav, int itemId) {
+        int color;
+        if (itemId == R.id.inicio)       color = R.color.sel_inicio;
+        else if (itemId == R.id.bodegaV)  color = R.color.sel_bodega;
+        else if (itemId == R.id.estatusP) color = R.color.sel_estatus;
+        else if (itemId == R.id.listas)  color = R.color.sel_listas;
+        else if (itemId == R.id.recetasP) color = R.color.sel_recetas;
+        else if (itemId == R.id.consumo) color = R.color.sel_consumo;
+        else                                 color = R.color.sel_menus;
+
+        android.graphics.drawable.GradientDrawable seleccionado =
+                new android.graphics.drawable.GradientDrawable();
+        seleccionado.setColor(androidx.core.content.ContextCompat.getColor(this, color));
+        seleccionado.setCornerRadius(100f * getResources().getDisplayMetrics().density);
+
+        android.graphics.drawable.StateListDrawable fondo =
+                new android.graphics.drawable.StateListDrawable();
+        fondo.addState(new int[]{android.R.attr.state_checked}, seleccionado);
+        fondo.addState(new int[]{},
+                new android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+        nav.setItemBackground(fondo);
+    }
+    private int dpToPx(int dp) {
+        return (int) (dp * getResources().getDisplayMetrics().density);
+    }
+
     //Metodo para cambiar el color de los titulos en el menu
     private void setMenuItemTitleColor(MenuItem item, String title, String colorHex) {
         if (item != null) {
@@ -104,11 +149,10 @@ public class Home extends AppCompatActivity implements
         int itemId = menuItem.getItemId();
 
         drawerLayout.closeDrawer(GravityCompat.START);
-        if (itemId == menu_inicio){
+        if (itemId == menu_inicio) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     new fragmentHome()).commit();
-        }
-        else if (itemId == menu_bodega) {
+        } else if (itemId == menu_bodega) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     new bodegaviveresfragment()).commit();
         } else if (itemId == menu_estatus) {
@@ -120,13 +164,16 @@ public class Home extends AppCompatActivity implements
         } else if (itemId == menu_recetas) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     new recetasPropiasfragment()).commit();
-        } else if(itemId == menu_consumo){
+        } else if (itemId == menu_consumo) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     new consumofragment()).commit();
-        } else if(itemId == menu_menus){
+        } else if (itemId == menu_menus) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     new menusfragment()).commit();
         }
+
+        pintarSeleccion(navigationView, itemId);
+
         return true;
     }
 }
